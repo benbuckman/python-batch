@@ -29,6 +29,7 @@ __protobuf__ = proto.module(
         "JobNotification",
         "AllocationPolicy",
         "TaskGroup",
+        "ServiceAccount",
     },
 )
 
@@ -336,6 +337,8 @@ class AllocationPolicy(proto.Message):
         instances (Sequence[google.cloud.batch_v1.types.AllocationPolicy.InstancePolicyOrTemplate]):
             Describe instances that can be created by this
             AllocationPolicy. Only instances[0] is supported now.
+        service_account (google.cloud.batch_v1.types.ServiceAccount):
+            Service account that VMs will run as.
         labels (Mapping[str, str]):
             Labels applied to all VM instances and other resources
             created by AllocationPolicy. Labels could be user provided
@@ -620,6 +623,11 @@ class AllocationPolicy(proto.Message):
         number=8,
         message=InstancePolicyOrTemplate,
     )
+    service_account = proto.Field(
+        proto.MESSAGE,
+        number=9,
+        message="ServiceAccount",
+    )
     labels = proto.MapField(
         proto.STRING,
         proto.STRING,
@@ -715,6 +723,26 @@ class TaskGroup(proto.Message):
     permissive_ssh = proto.Field(
         proto.BOOL,
         number=12,
+    )
+
+
+class ServiceAccount(proto.Message):
+    r"""Carries information about a Google Cloud service account.
+
+    Attributes:
+        email (str):
+            Email address of the service account. If not
+            specified, the default Compute Engine service
+            account for the project will be used. If
+            instance template is being used, the service
+            account has to be specified in the instance
+            template and it has to match the email field
+            here.
+    """
+
+    email = proto.Field(
+        proto.STRING,
+        number=1,
     )
 
 
