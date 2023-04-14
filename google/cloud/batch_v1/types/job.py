@@ -200,6 +200,8 @@ class JobStatus(proto.Message):
             task_pack (int):
                 The max number of tasks can be assigned to
                 this instance type.
+            boot_disk (google.cloud.batch_v1.types.AllocationPolicy.Disk):
+                The VM boot disk.
         """
 
         machine_type = proto.Field(
@@ -214,6 +216,11 @@ class JobStatus(proto.Message):
         task_pack = proto.Field(
             proto.INT64,
             number=3,
+        )
+        boot_disk: "AllocationPolicy.Disk" = proto.Field(
+            proto.MESSAGE,
+            number=4,
+            message="AllocationPolicy.Disk",
         )
 
     class TaskGroupStatus(proto.Message):
@@ -500,6 +507,10 @@ class AllocationPolicy(proto.Message):
             accelerators (Sequence[google.cloud.batch_v1.types.AllocationPolicy.Accelerator]):
                 The accelerators attached to each VM
                 instance. Not yet implemented.
+            boot_disk (google.cloud.batch_v1.types.AllocationPolicy.Disk):
+                Book disk to be created and attached to each
+                VM by this InstancePolicy. Boot disk will be
+                deleted when the VM is deleted.
             disks (Sequence[google.cloud.batch_v1.types.AllocationPolicy.AttachedDisk]):
                 Non-boot disks to be attached for each VM
                 created by this InstancePolicy. New disks will
@@ -523,6 +534,11 @@ class AllocationPolicy(proto.Message):
             proto.MESSAGE,
             number=5,
             message="AllocationPolicy.Accelerator",
+        )
+        boot_disk: "AllocationPolicy.Disk" = proto.Field(
+            proto.MESSAGE,
+            number=8,
+            message="AllocationPolicy.Disk",
         )
         disks = proto.RepeatedField(
             proto.MESSAGE,
