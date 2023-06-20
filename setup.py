@@ -26,7 +26,12 @@ release_status = "Development Status :: 4 - Beta"
 dependencies = [
     "google-api-core[grpc] >= 2.8.0, <3.0.0dev",
     "proto-plus >= 1.15.0, <2.0.0dev",
-    "protobuf >= 3.19.0, <4.0.0dev",
+
+    # GP OC fork: allow protobuf 4.23.2 for compatibility with Airflow 2.6.2.
+    # Replaces prior constraint "<4.0.0dev".
+    # Unit tests pass for Python 3.10: `python -m nox -s unit-3.10`
+    "protobuf >= 3.19.0, <= 4.23.2",
+
     "grpc-google-iam-v1 >=0.12.4, <1.0.0dev",
 ]
 url = "https://github.com/googleapis/python-batch"
